@@ -38,4 +38,18 @@ public class UserController : ControllerBase
         _db.Users.RemoveRange(_db.Users);
         _db.SaveChanges();
     }
+    
+    [HttpDelete("DeleteMe")]
+    public void DeleteMe(long id)
+    {
+        try {
+            _db.Users.Remove(_db.Users.First(x => x.TGID == id));
+            _db.SaveChanges();
+            Response.StatusCode = 200;
+        } catch (System.Exception)
+        {
+            Response.StatusCode = 500;
+        }
+        
+    }
 }

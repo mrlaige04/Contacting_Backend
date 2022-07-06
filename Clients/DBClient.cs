@@ -27,19 +27,14 @@ public class DBClient
         await db.SaveChangesAsync();
     }
     
-    public async void EditUser(User user)
-    {
-        var userFromDb = db.Users.FirstOrDefault(user => user.TGID == user.TGID);
-        userFromDb = user;
-        await db.SaveChangesAsync();
-    }
+    
 
     public List<User> GetAll()
     {
         return db.Users.ToList();
     }
 
-    public async void FillData(long tgid, string name, int age, string male, string city, string description)
+    public async void FillData(long tgid, string name, int age, string male, string city, string description, string photopath)
     {
         var user = db.Users.FirstOrDefault(user => user.TGID == tgid);
         user.Name = name;
@@ -48,11 +43,23 @@ public class DBClient
         
         user.city = city;
         user.description = description;
+        user.photo_path = photopath;
+        
         await db.SaveChangesAsync();
     }
 
     public string GetUser(long id)
     {
         return JsonSerializer.Serialize(db.Users.FirstOrDefault(user=>user.TGID == id));
+    }
+
+    public string GetMales()
+    {
+        return JsonSerializer.Serialize(db.Users.Where(user => user.Male == Males.Male));
+    }
+
+    public string GetFemales()
+    {
+        return JsonSerializer.Serialize(db.Users.Where(user => user.Male == Males.Female));
     }
 }

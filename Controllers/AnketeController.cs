@@ -16,9 +16,9 @@ public class AnketeController : ControllerBase
         _dbClient = new DBClient(_db);
     }
     [HttpPost("FillData")]
-    public void FillData(long tgid, string name, int age, string male, string city,  string description)
+    public void FillData(long tgid, string name, int age, string male, string city,  string description, string photopath)
     {
-        _dbClient.FillData(tgid, name, age, male, city, description);
+        _dbClient.FillData(tgid, name, age, male, city, description, photopath);
     }
 
     [HttpGet("GetMyAnketa")]
@@ -26,4 +26,7 @@ public class AnketeController : ControllerBase
     {
         return _dbClient.GetUser(id);
     }
+    
+    
+    
 }
